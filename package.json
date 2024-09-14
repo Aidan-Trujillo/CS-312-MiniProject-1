@@ -4,13 +4,14 @@
   "description": "A Blog Web Application for my first project in CS312. This project utilizes Node.js, Express.js, and EJS to make the page functional and smooth.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "ejs": "^3.1.10",
-    "express": "^4.21.0"
+    "express": "^4.21.0",
+    "nodemon": "^3.1.4"
   }
 }
