@@ -1,6 +1,18 @@
+// server to handle backend of a blog website
+
+// dependencies
+const { readPosts, addPost } = require('./utils');
+
+// constants
+const PostsPath = './blogPosts.txt';
+
+// server initialization
 var express = require('express');
-var app = express();
+var fs = require('fs');
 var path = require('path');
+
+// start app
+var app = express();
 
 // set view engine to ejs
 app.set('view engine', 'ejs')
@@ -8,11 +20,22 @@ app.set('views', path.join(__dirname, '/Website'));
 app.use(express.urlencoded({ extended: true }));
 
 
+
+
+
 // index page (where blog shows up)
-app.get('/', function(req,res) {
-    res.render('index', { 
-        title: 'Blog Page', 
-        message: 'Welcome to my Blog page!' });
+app.get('/', async (req,res) => {
+    try{
+        // get all posts
+        const posts = await readPosts(PostsPath);
+        console.log(posts);
+        res.render('index', { 
+            title: 'Blog Page', 
+            message: 'Welcome to my Blog page!' });
+    } catch (err) {
+        console.error('Error:', err);
+        res.status(500).send('Error processing the form');
+    }
 });
 
 // post page (making a blog post)
