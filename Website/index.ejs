@@ -22,6 +22,7 @@
     <main>
         <p style="font-size: 20px;">Below you can enter a blog post or scroll further to see others' posts</p>
 
+        <!-- Blog Post Form Below -->
         <form action="/submit" method="post">
             <label for="name">Name: </label>
             <input type="text" id="name" name="name" placeholder="Name" required>
@@ -48,6 +49,42 @@
             <button type="submit">Post</button>
             
         </form>
+
+        <div class="placeholder" style="height: 100px;"></div>
+
+        <!-- All Current Blog Posts -->
+        <div>
+            <h1><%= category %> Blog Posts</h1>
+
+            <!-- Filter for Posts -->
+            <label for="category">Change Category:</label>
+            <select id="categoryPosts" name="categoryPosts" 
+                    onchange="window.location.href = `/posts?category=${encodeURIComponent(this.value)}`;">
+                <option value="" disabled selected>Select your category</option>
+                <option value="All" >All</option>
+                <option value="Tech">Tech</option>
+                <option value="Lifestyle">Lifestyle</option>
+                <option value="Education">Education</option>
+                <option value="None">None</option>
+            </select>
+            
+            <div class="placeholder" style="height: 100px;"></div>
+
+            <!-- Blog Posts sorted newest at the top -->
+            <ul>
+                <% posts.reverse().forEach(function(post) { %>
+                    <div class="BlogPost" >
+                        <h1><%= post.title %></h1>
+                        <h4><%= post.name %></h4>
+                        <p><%= post.message %></p>
+                        <h6><%= post.category %></h6>
+                        <h6><%= post.time %></h6>
+                    </div>
+                <% }) %>
+            </ul>
+        </div>
+
+        
     </main>
 
     <footer>

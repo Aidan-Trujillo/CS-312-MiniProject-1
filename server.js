@@ -2,9 +2,8 @@
 
 // dependencies
 const { readPosts, addPost } = require('./utils');
+const {PostsPath} = require('./constants.js')
 
-// constants
-const PostsPath = './blogPosts.txt';
 
 // server initialization
 var express = require('express');
@@ -28,28 +27,55 @@ app.get('/', async (req,res) => {
     try{
         // get all posts
         const posts = await readPosts(PostsPath);
-        console.log(posts);
+
         res.render('index', { 
             title: 'Blog Page', 
-            message: 'Welcome to my Blog page!' });
+            message: 'Welcome to my Blog page!', 
+            posts: posts,
+            category: "All"});
     } catch (err) {
         console.error('Error:', err);
         res.status(500).send('Error processing the form');
     }
 });
 
-// post page (making a blog post)
-app.get('/post', function(req,res) {
-    res.render('post');
-});
 
 // post page (making a blog post)
-app.post('/submit', function(req,res) {
-    const { name, title, category, message } = req.body;
-    console.log(req.body)
+app.post('/submit', async (req,res) => {
+    // get the time
+    const dateTimeFull = Date().toLocaleString().split(' ');
+    const dateTime = dateTimeFull.slice(0, 5); 
+
+    console.log(dateTime);
+
+    // get post and add time
+    var post = req.body;
+    post.time = dateTime.join(' ');
+
+    addPost(PostsPath, post);
+    
+    res.redirect('/');
+});
+
+
+// change category logic
+app.get('/posts', async (req,res) => {
+    // get the category
+    const category = req.query.category
+
+    // get all posts
+    var posts = await readPosts(PostsPath);
+    // filter out posts if they do not have category as All
+    if (category !== "All"){
+        posts = posts.filter(post => post.category === category)
+    } 
+
     res.render('index', { 
         title: 'Blog Page', 
-        message: 'Thank you for submitting your post, ' + name + '!! Post again?'});
+        message: 'Welcome to my Blog page!', 
+        posts: posts,
+        category: category});
+    
 });
 
 
