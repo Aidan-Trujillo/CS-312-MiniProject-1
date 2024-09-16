@@ -1,42 +1,18 @@
 [
   {
-    "name": "test",
-    "title": "sdte",
-    "category": "Tech",
-    "message": "sdfewwsf",
-    "time": "Sat Sep 14 2024 18:15:15",
+    "name": "Aidan Trujillo",
+    "title": "Blog Post 2",
+    "category": "Lifestyle",
+    "message": "New Topic about Lifestyle\r\n            \r\n            ",
+    "time": "Sun Sep 15 2024 20:48:01",
     "id": "1"
   },
   {
     "name": "Aidan",
-    "title": "TITLE",
-    "category": "Education",
-    "message": "SUCK MY DICK EDUCATION",
-    "time": "Sat Sep 14 2024 18:55:01",
-    "id": "2"
-  },
-  {
-    "name": "Aidan",
-    "title": "TEST",
-    "category": "None",
-    "message": "Nope            ",
-    "time": "Sun Sep 15 2024 17:21:26",
-    "id": "3"
-  },
-  {
-    "name": "Aidan",
-    "title": "w",
-    "category": "Education",
-    "message": "cum",
-    "time": "Sun Sep 15 2024 18:06:42",
-    "id": "4"
-  },
-  {
-    "name": "Aidan",
-    "title": "New Title",
+    "title": "New Blog Post",
     "category": "Tech",
-    "message": "                Aidan\r\n            ",
-    "time": "Sun Sep 15 2024 19:59:06",
-    "id": "5"
+    "message": "My Post. Edited??\r\n            \r\n            ",
+    "time": "Sun Sep 15 2024 20:48:49",
+    "id": "2"
   }
 ]

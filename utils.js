@@ -14,9 +14,14 @@ const readPosts = async (filePath) => {
         }
 
         // get the next index so we know how many posts there are total
-        const lastId = jsonData[jsonData.length - 1].id;
+        var lastId = 0
+        if (jsonData.length > 0){
+            lastId = jsonData[jsonData.length - 1].id;
+        }
+        
 
         const posts = jsonData; // format it in the way that will be readable in server
+        console.log(posts)
         return {posts, lastId};
 
     } catch (err) {
@@ -26,11 +31,12 @@ const readPosts = async (filePath) => {
     }
 };
 
+// function that simplly adds a newly created post
 const addPost = async (filePath, post) => {
     // get list of posts
     const {posts, lastId} = await readPosts(PostsPath);
     // get the next index to add to the post
-    post.id = lastId + 1;
+    post.id = Number(lastId) + 1;
     
     // push the post and get it ready to write to the file
     posts.push(post);
@@ -49,10 +55,13 @@ const addPost = async (filePath, post) => {
 const getPostById = (id, posts) => {
 
     var index = 0
+    console.log("Entering getPostById")
+    console.log(posts)
+    console.log(posts[index])
     var currentId = posts[index].id;
     
     // iterate through the posts to find the id and then get the information
-    while (currentId !== String(id)){
+    while (String(currentId) !== String(id)){
         index++;
         currentId = posts[index].id;
     }

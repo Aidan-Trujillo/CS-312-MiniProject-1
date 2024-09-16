@@ -18,7 +18,8 @@ app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, '/Website'));
 app.use(express.urlencoded({ extended: true }));
 
-
+// set static files
+app.use(express.static(path.join(__dirname, 'Public')));
 
 
 
@@ -28,6 +29,7 @@ app.get('/', async (req,res) => {
         // get all posts
         const {posts, lastId} = await readPosts(PostsPath);
 
+        console.log(posts)
         res.render('index', { 
             title: 'Blog Page', 
             message: 'Welcome to my Blog page!', 
@@ -115,6 +117,30 @@ app.post('/editPost', async (req, res) => {
     console.log("Submitting edited post");
 
     // redirect to home again
+    res.redirect('/');
+})
+
+
+// delete a post
+app.get('/deletePost', async (req,res) => {
+    // get the post from the query
+    const id = req.query.post;
+
+    // get post by id
+    var {posts} = await readPosts(PostsPath);
+    const {post, index} = getPostById(id, posts);
+    console.log("Deleting the following post: ");
+    
+    // delete post and save
+    posts.splice(index, 1);
+
+    // check if posts length is zero, then just change to empty text
+    if (posts.length < 1) {
+        posts = ''
+    }
+    savePosts(posts)
+
+    // send to an edit post page
     res.redirect('/');
 })
 

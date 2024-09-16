@@ -13,6 +13,9 @@
     <!-- Favicon placeholder -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
+    <!-- Cascading Style Sheet -->
+    <link rel="stylesheet" href="/styles/style.css">
+
 </head>
 <body>
     <header>
@@ -80,7 +83,8 @@
                           onclick="window.location.href = `/editPost?post=<%= post.id %>`;">
                           Edit</button>
                         <button 
-                          class="mod-button">
+                          class="mod-button"
+                          onclick="window.location.href = `/deletePost?post=<%= post.id %>`;">
                           Delete</button>
                         <!-- Blog Post information -->
                         <h1><%= post.title %></h1>
