@@ -12,6 +12,8 @@
 
     <!-- Favicon placeholder -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/styles/style.css">
 
 </head>
 <body>
@@ -23,6 +25,7 @@
         <p style="font-size: 20px;">Below you can edit the blog post</p>
 
         <!-- Blog Post Form Below -->
+        <div id="form-div">
         <form action="/editPost" method="post">
             <label for="name">Name: </label>
             <input type="text" id="name" name="name" value="<%= post.name %>" required>
@@ -56,3 +59,4 @@
             <button type="submit">Save</button>
             
         </form>
+        </div>

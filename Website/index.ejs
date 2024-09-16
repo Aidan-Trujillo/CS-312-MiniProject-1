@@ -26,6 +26,7 @@
         <p style="font-size: 20px;">Below you can enter a blog post or scroll further to see others' posts</p>
 
         <!-- Blog Post Form Below -->
+        <div id="form-div">
         <form action="/submit" method="post">
             <label for="name">Name: </label>
             <input type="text" id="name" name="name" placeholder="Name" required>
@@ -52,11 +53,12 @@
             <button type="submit">Post</button>
             
         </form>
+        </div>
 
-        <div class="placeholder" style="height: 100px;"></div>
+        <div class="placeholder" ></div>
 
         <!-- All Current Blog Posts -->
-        <div>
+        <div class="feed">
             <h1><%= category %> Blog Posts</h1>
 
             <!-- Filter for Posts -->
@@ -71,27 +73,34 @@
                 <option value="None">None</option>
             </select>
             
-            <div class="placeholder" style="height: 100px;"></div>
+            <div class="placeholder"></div>
 
             <!-- Blog Posts sorted newest at the top -->
-            <ul>
+            <ul <% posts.length === 0 ? 'style="display: none;"' : '' %>>
                 <% posts.reverse().forEach(function(post, index) { %>
-                    <div class="BlogPost" id="<%= post.id %>" >
+                    <div class="blog-post" id="<%= post.id %>" >
                         <!-- Blog Post edit/delete buttons -->
-                        <button 
-                          class="mod-button" 
-                          onclick="window.location.href = `/editPost?post=<%= post.id %>`;">
-                          Edit</button>
-                        <button 
-                          class="mod-button"
-                          onclick="window.location.href = `/deletePost?post=<%= post.id %>`;">
-                          Delete</button>
+                        <div class="post-header">
+                            <button 
+                            class="mod-button" 
+                            onclick="window.location.href = `/editPost?post=<%= post.id %>`;">
+                            Edit</button>
+                            <button 
+                            class="mod-button"
+                            onclick="window.location.href = `/deletePost?post=<%= post.id %>`;">
+                            Delete</button>
+
+                            <h1><%= post.title %></h1>
+                            <h4>Author: <%= post.name %></h4>
+                        </div> 
                         <!-- Blog Post information -->
-                        <h1><%= post.title %></h1>
-                        <h4><%= post.name %></h4>
-                        <p><%= post.message %></p>
-                        <h6><%= post.category %></h6>
-                        <h6><%= post.time %></h6>
+                        <div class="post-body">
+                            <p><%= post.message %></p>
+                        </div>
+                        <div class="post-footer">
+                            <h6><%= post.category %></h6>
+                            <h6><%= post.time %></h6>
+                        </div>
                     </div>
                 <% }) %>
             </ul>

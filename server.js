@@ -29,7 +29,7 @@ app.get('/', async (req,res) => {
         // get all posts
         const {posts, lastId} = await readPosts(PostsPath);
 
-        console.log(posts)
+        console.log(posts.length)
         res.render('index', { 
             title: 'Blog Page', 
             message: 'Welcome to my Blog page!', 
@@ -67,7 +67,7 @@ app.get('/posts', async (req,res) => {
     const category = req.query.category
 
     // get all posts
-    var posts = await readPosts(PostsPath);
+    var {posts} = await readPosts(PostsPath);
     // filter out posts if they do not have category as All
     if (category !== "All"){
         posts = posts.filter(post => post.category === category)
@@ -131,13 +131,15 @@ app.get('/deletePost', async (req,res) => {
     const {post, index} = getPostById(id, posts);
     console.log("Deleting the following post: ");
     
-    // delete post and save
-    posts.splice(index, 1);
-
-    // check if posts length is zero, then just change to empty text
-    if (posts.length < 1) {
-        posts = ''
+    // delete post and save (check for special case when only one post)
+    if (posts.length === 1) {
+        posts = []
+    } else {
+        posts.splice(index, 1);
     }
+
+    console.log(posts)
+
     savePosts(posts)
 
     // send to an edit post page
