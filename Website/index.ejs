@@ -72,8 +72,17 @@
 
             <!-- Blog Posts sorted newest at the top -->
             <ul>
-                <% posts.reverse().forEach(function(post) { %>
-                    <div class="BlogPost" >
+                <% posts.reverse().forEach(function(post, index) { %>
+                    <div class="BlogPost" id="<%= post.id %>" >
+                        <!-- Blog Post edit/delete buttons -->
+                        <button 
+                          class="mod-button" 
+                          onclick="window.location.href = `/editPost?post=<%= post.id %>`;">
+                          Edit</button>
+                        <button 
+                          class="mod-button">
+                          Delete</button>
+                        <!-- Blog Post information -->
                         <h1><%= post.title %></h1>
                         <h4><%= post.name %></h4>
                         <p><%= post.message %></p>
